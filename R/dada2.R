@@ -15,6 +15,7 @@
 #' @param train_data (Required).training database
 #' @param train_species (Required). species database
 #' @param outpath (Optional).the path for the filtered reads and th out table
+#' @param saveobj (Optional).Default FALSE. save the phyloseq object output.
 #' @param buildtree build phylogenetic tree or not(default: FALSE)
 #' @param verbose (Optional). Default TRUE. Print verbose text output.
 #' @author Kai Guo
@@ -30,6 +31,7 @@ processSeq <- function(path=".",
                        train_data="silva_nr99_v138_train_set.fa.gz",
                        train_species="silva_species_assignment_v138.fa.gz",
                        outpath=NULL,
+                       saveobj=FALSE,
                        buildtree=FALSE,
                        verbose=TRUE){
     OS<-.Platform$OS.type
@@ -38,17 +40,24 @@ processSeq <- function(path=".",
     }else{
         multithread<-TRUE
     }
-    fnFs <- sort(list.files(path, pattern="_R1_001.fastq", full.names = TRUE))
-    fnRs <- sort(list.files(path, pattern="_R2_001.fastq", full.names = TRUE))
-    sample.names <- sapply(strsplit(basename(fnFs), "_"), `[`, 1)
+    fnFs <- sort(list.files(path, pattern="R1", full.names = TRUE))
+    fnRs <- sort(list.files(path, pattern="R2", full.names = TRUE))
+    message("check the filename ......")
+    if(any(grepl('R1|R2',fnFs)==FALSE)){
+        stop("All fastq name should be either contain R1 or R2 \n")
+    }
+    sample.names <-sub('@@@@.*','',sub('(\\.|_)R(1|2)','@@@@',basename(fnFs)))
+    if(sum(duplicated(sample.names))>=1){
+        stop('The fastq filenames are not unique!\n')
+    } 
     #filter and trim;
     if(isTRUE(verbose)){
     message("Filtering......");
     }
-    ifelse(!dir.exists("filtered"),dir.create("filtered"),FALSE);
     if(is.null(outpath)){
         outpath<-path
     }
+    ifelse(!dir.exists(paste0(outpath,"/filtered")),dir.create(file.path(outpath,"filtered"),recursive=TRUE),FALSE);
     filtFs <- file.path(outpath, "filtered", paste0(sample.names, "_F_filt.fastq.gz"))
     filtRs <- file.path(outpath, "filtered", paste0(sample.names, "_R_filt.fastq.gz"))
     out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs, truncLen=truncLen,trimLeft=trimLeft,trimRight=trimRight,
@@ -97,6 +106,7 @@ processSeq <- function(path=".",
     # count table:
     asv_count <- t(seqtab.nochim)
     rownames(asv_count) <- sub(">", "", asv_headers)
+    ### set back to the previous work dir
     if(isTRUE(verbose)){
         message("Write out the count table.......")
     }
@@ -152,6 +162,9 @@ processSeq <- function(path=".",
     ps <- phyloseq(otu_table(asv_count, taxa_are_rows=T),
                    sample_data(sampdf),
                    tax_table(asv_taxa))
+    if(isTRUE(saveobj)){
+        save(ps,file=paste0(outpath,"phyloseq.rdata"),compress=TRUE)
+    }
     res<-list(track=track,count=asv_count,taxonomy=asv_taxa,physeq=ps)
     return(res)
 }

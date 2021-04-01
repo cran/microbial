@@ -1,7 +1,7 @@
-d0d379f03de95774c33904fbec17bc98 *DESCRIPTION
+0a542dad6d04f433e758f4a55a6b9cb0 *DESCRIPTION
 cfeff2b0e2bec8ee2c42dc9f818ebe21 *NAMESPACE
 8bfbdef8ba2ff339fbd8d629b6c04230 *R/Functions.R
-4c81941a97a08aa6cc0e2e81307455c1 *R/dada2.R
+33be68129c4024f8fadc209dedba40d6 *R/dada2.R
 4bce26ddf87f1cc9b3534f474d0c2941 *R/data.R
 8992051410f5b7b8b4abb63834f220a4 *R/misc.R
 323aa0f1998f41cab6c03aee3362a57e *R/plot.R
@@ -39,7 +39,7 @@ c22b732b2457b3850e70c8e797f28f2e *man/plotdiff.Rd
 8ef09a87471c6714bb9d09a57726118a *man/plotquality.Rd
 788491b801cb79d91b0f1e1dbf88634e *man/preRef.Rd
 e8222d1fe7470adc65f29dff5ea0f68c *man/prefilter.Rd
-824486fba045e1cba0c777c601d71362 *man/processSeq.Rd
+211bead4dbb1d95fdeb340e662f0ede4 *man/processSeq.Rd
 03e97d39c732050c6a98afe6c9e502dd *man/richness.Rd
 e1bb7b96200c44fca6c36afc991753c1 *man/sample_data.Rd
 b6332d6c3a89c08a14e0365e1d3010c7 *man/subset_samples.Rd
