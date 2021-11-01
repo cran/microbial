@@ -26,12 +26,12 @@ preRef<-function(ref_db,path="."){
         message(paste0(path, "/rdp_species_assignment_16.fa.gz"))
     } else if (ref_db == "silva"){
             ifelse(!file.exists(paste0(path,"/silva_nr99_v138_train_set.fa.gz")),
-            download.file(url = "https://zenodo.org/record/3986799/files/silva_nr99_v138_train_set.fa.gz?download=1",
+            download.file(url = "https://zenodo.org/record/4587955/files/silva_nr99_v138.1_train_set.fa.gz?download=1",
                          destfile = file.path(paste0(path, "/silva_nr99_v138_train_set.fa.gz")),
                          method = "auto"),
            FALSE);
            ifelse(!file.exists(paste0(path,"/silva_species_assignment_v138.fa.gz?")),
-           download.file(url = 'https://zenodo.org/record/3986799/files/silva_species_assignment_v138.fa.gz?download=1',
+           download.file(url = 'https://zenodo.org/record/4587955/files/silva_species_assignment_v138.1.fa.gz?download=1',
                          destfile = file.path(paste0(path,"/silva_species_assignment_v138.fa.gz")),
                          method = 'auto'),
            FALSE);
@@ -379,6 +379,7 @@ biomarker<-function(physeq,group,ntree=500,pvalue=0.05,normalize=TRUE,method="re
     data$group<-tab$group
     data$group<-factor(data$group)
     val<-randomForest(group ~ ., data=data, importance=TRUE, proximity=TRUE,ntree=ntree)
+    print(val)
     imp<- importance(val)
     res<-data.frame(row.names=NULL,OTU=sub('X','',rownames(imp)),
                     Value=abs(as.numeric(imp[,"MeanDecreaseAccuracy"])),

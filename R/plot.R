@@ -171,6 +171,7 @@ plotalpha<-function(physeq,group,method=c("Observed","Simpson", "Shannon"),color
 #' @param color A vector of character use specifying the color
 #' @param group group (Optional). A character string specifying the name of a categorical variable containing  grouping information.
 #' @param top the number of most abundance bacteria to display
+#' @param return return the data with the relative abundance
 #' @param fontsize.x the size of x axis label
 #' @param fontsize.y the size of y axis label
 #' @examples
@@ -182,7 +183,7 @@ plotalpha<-function(physeq,group,method=c("Observed","Simpson", "Shannon"),color
 #' @return Returns a ggplot object. This can further be manipulated as preferred by user.
 #' @author Kai Guo
 #' @export
-plotbar<-function(physeq,level="Phylum",color=NULL,group=NULL,top=5,fontsize.x = 5, fontsize.y = 12){
+plotbar<-function(physeq,level="Phylum",color=NULL,group=NULL,top=5,return=FALSE,fontsize.x = 5, fontsize.y = 12){
     pm <- psmelt(physeq)
     if(is.null(color)){
         len<-length(unique(pm[,level]))
@@ -212,7 +213,11 @@ plotbar<-function(physeq,level="Phylum",color=NULL,group=NULL,top=5,fontsize.x =
               axis.text.y=element_text(size=fontsize.y),
               panel.background = element_blank(),axis.ticks.x = element_blank())+
         xlab("")+ylab("")
-    p
+    if(isTRUE(return)){
+        return(pm[,c("OTU","Abundance",group_var)])
+    }else{
+        return(p)
+    }
 }
 
 #' @title plot differential results
@@ -306,7 +311,7 @@ plotLDA<-function(x,group,lda=2,pvalue=0.05,padj=NULL,color=NULL,fontsize.x=4,fo
         theme_light()+theme(axis.text.x = element_text(size=fontsize.x),
                             axis.text.y = element_text(size=fontsize.y))
     if(is.null(color)){
-        color <- distcolor[1:2]
+        color <- distcolor[c(2:3)]
     }
     p<-p+scale_fill_manual(values=color)+xlab("")
     p
@@ -348,7 +353,6 @@ plotmarker<-function(x,level="Genus",top=30,rotate=FALSE,dot.size=8,label.color=
 }
 
 #' plot the quality for the fastq file
-#' @importFrom dada2 plotQualityProfile
 #' @param file 	(Required). character. File path(s) to fastq or fastq.gz file(s).
 #' @param n	(Optional). Default 500,000. The number of records to sample from the fastq file.
 #' @param aggregate	(Optional). Default FALSE. If TRUE, compute an aggregate quality profile for all fastq files provided.
@@ -359,5 +363,5 @@ plotmarker<-function(x,level="Genus",top=30,rotate=FALSE,dot.size=8,label.color=
 #' @export
 #' @return figure
 plotquality<-function(file,n = 5e+05, aggregate = FALSE){
-    plotQualityProfile(file,n=n,aggregate = aggregate)
+    dada2::plotQualityProfile(file,n=n,aggregate = aggregate)
 }
