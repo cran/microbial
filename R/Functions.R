@@ -168,7 +168,7 @@ betadiv<-function(physeq,distance="bray",method="PCoA"){
 }
 #' @title PERMANOVA test for phyloseq
 #' @importFrom phyloseq distance
-#' @importFrom vegan adonis
+#' @importFrom vegan adonis2
 #' @importFrom tidyr gather
 #' @importFrom dplyr group_by
 #' @importFrom dplyr do
@@ -197,10 +197,10 @@ betatest<-function(physeq,group,distance="bray"){
     tab<-tab[,group,drop=F]
     res<-NULL
     if(length(group)>1){
-        res<- tab%>%gather(Group,val)%>%group_by(Group)%>%do(as.data.frame(adonis(dist~val,.)$aov.tab))
+        res<- tab%>%gather(Group,val)%>%group_by(Group)%>%do(as.data.frame(adonis2(dist~val,.)$aov.tab))
     }else{
         tab$Group <- tab[,group]
-        res<-as.data.frame(adonis(dist~Group,tab)$aov.tab)
+        res<-as.data.frame(adonis2(dist~Group,tab)$aov.tab)
     }
     return(as.data.frame(res))
 }

@@ -1,6 +1,6 @@
-fd023741948b175bab1e1047cd124f10 *DESCRIPTION
-4ed66f91d642b118bc2b623509d76127 *NAMESPACE
-4fae6a710118619b72f07ec87e6ac76c *R/Functions.R
+8313b8e7d947e5dd1e29c4f761b5acda *DESCRIPTION
+08b5ad6299d795eca6e671bf13d0390e *NAMESPACE
+f41f0cccf92d72e4c23906ddd1df044b *R/Functions.R
 060b73ef3d084da3a9782ef9997a390f *R/dada2.R
 4bce26ddf87f1cc9b3534f474d0c2941 *R/data.R
 596cd243bd25fb7969cb9ff3e25260bc *R/glmr.R
@@ -8,11 +8,11 @@ fd023741948b175bab1e1047cd124f10 *DESCRIPTION
 bc0de4baddac59dff59de534ee843040 *R/plot.R
 070fd873716bd812d4648510cc111cc4 *R/zzz.R
 a77e66e5cbb0484ae8c6abe5eebee37b *README.md
-b9a10e15536191f66e5c78550eb7fc03 *build/vignette.rds
+ff236dfa61e4fcc2b4d19f0758ec9cfb *build/vignette.rds
 3f86d48794da45295a5761e0df5892f5 *data/Physeq.rda
 489cb9f9856732f7dcdddd8985e487ff *inst/doc/microbial.R
 7d3fddc4bfcb1327888b2b1d0fd00053 *inst/doc/microbial.Rmd
-1ff983a3f7494e70637001d5cc828b07 *inst/doc/microbial.html
+ac9871ecf534cb09460a518174d6b458 *inst/doc/microbial.html
 44e4778e6a773a1643850537d21e52e6 *man/betadiv.Rd
 9bd8854521cf5722087b321dcbbafc4e *man/betatest.Rd
 ccb89f3af72f36ce972c6872ccfc1dd6 *man/biomarker.Rd
